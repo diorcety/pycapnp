@@ -285,6 +285,8 @@ cdef extern from "capnp/dynamic.h" namespace " ::capnp":
         cppclass Reader:
             DynamicValueForward.Reader get(char *) except +reraise_kj_exception
             DynamicValueForward.Reader getByField"get"(StructSchema.Field) except +reraise_kj_exception
+            AnyPointerForward.Reader getAs"getAs< ::capnp::AnyPointer>"(char*) except +reraise_kj_exception
+            AnyPointerForward.Reader getAsByField"getAs< ::capnp::AnyPointer>"(StructSchema.Field) except +reraise_kj_exception
             bint has(char *) except +reraise_kj_exception
             bint hasByField"has"(StructSchema.Field) except +reraise_kj_exception
             StructSchema getSchema()
@@ -302,6 +304,8 @@ cdef extern from "capnp/dynamic.h" namespace " ::capnp":
         DynamicStruct_Builder(DynamicStruct_Builder &)
         DynamicValueForward.Builder get(char *) except +reraise_kj_exception
         DynamicValueForward.Builder getByField"get"(StructSchema.Field) except +reraise_kj_exception
+        AnyPointerForward.Builder getAs"getAs< ::capnp::AnyPointer>"(char *) except +reraise_kj_exception
+        AnyPointerForward.Builder getAsByField"getAs< ::capnp::AnyPointer>"(StructSchema.Field) except +reraise_kj_exception
         bint has(char *) except +reraise_kj_exception
         bint hasByField"has"(StructSchema.Field) except +reraise_kj_exception
         void set(char *, DynamicValueForward.Reader) except +reraise_kj_exception
