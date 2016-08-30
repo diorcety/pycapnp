@@ -53,6 +53,9 @@ cdef class _DynamicStructReader:
     cpdef _get_by_field(self, _StructSchemaField field)
     cpdef _has_by_field(self, _StructSchemaField field)
 
+    cpdef get_as(self, field)
+    cpdef get_as_by_field(self, _StructSchemaField field)
+
     cpdef as_builder(self, num_first_segment_words=?)
 
 
@@ -89,6 +92,9 @@ cdef class _DynamicStructBuilder:
     cpdef adopt(self, field, _DynamicOrphan orphan)
     cpdef disown(self, field)
     cpdef disown_by_field(self, _StructSchemaField field)
+
+    cpdef get_as(self, field)
+    cpdef get_as_by_field(self, _StructSchemaField field)
 
     cpdef as_reader(self)
     cpdef copy(self, num_first_segment_words=?)
