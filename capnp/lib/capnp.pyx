@@ -1011,6 +1011,12 @@ cdef class _DynamicStructReader:
     cpdef _get_by_field(self, _StructSchemaField field):
         return self.__get_by_field(field)
 
+    cpdef get_as(self, field):
+        return _DynamicObjectReader()._init(self.thisptr.getAs(field), self)
+
+    cpdef get_as_by_field(self, _StructSchemaField field):
+        return _DynamicObjectReader()._init(self.thisptr.getAsByField(field.thisptr), self)
+
     cpdef _has(self, field):
         return self.thisptr.has(field)
 
@@ -1254,6 +1260,12 @@ cdef class _DynamicStructBuilder:
             self._set(field, value)
         except KjException as e:
             raise e._to_python(), None, _sys.exc_info()[2]
+
+    cpdef get_as(self, field):
+        return _DynamicObjectBuilder()._init(self.thisptr.getAs(field), self)
+
+    cpdef get_as_by_field(self, _StructSchemaField field):
+        return _DynamicObjectBuilder()._init(self.thisptr.getAsByField(field.thisptr), self)
 
     cpdef _has(self, field):
         return self.thisptr.has(field)
