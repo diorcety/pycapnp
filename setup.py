@@ -7,6 +7,7 @@ from setuptools import setup
 import os
 import sys
 from buildutils import test_build, fetch_libcapnp, build_libcapnp, info
+from distutils.spawn import find_executable
 from distutils.errors import CompileError
 from distutils.extension import Extension
 
@@ -105,10 +106,16 @@ class build_libcapnp_ext(build_ext_c):
         elif force_system_libcapnp:
             need_build = False
         else:
+            # Try to use capnp executable to find include and lib path
+            capnp_executable = find_executable("capnp")
+            if capnp_executable:
+                self.include_dirs += [os.path.join(os.path.dirname(capnp_executable), '..', 'include')]
+                self.library_dirs += [os.path.join(os.path.dirname(capnp_executable), '..', 'lib')]
+
             # Try to autodetect presence of library. Requires compile/run
             # step so only works for host (non-cross) compliation
             try:
-                test_build()
+                test_build(include_dirs=self.include_dirs, library_dirs=self.library_dirs)
                 need_build = False
             except CompileError:
                 need_build = True
