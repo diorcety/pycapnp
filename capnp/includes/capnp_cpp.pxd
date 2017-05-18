@@ -99,9 +99,14 @@ cdef extern from "kj/array.h" namespace " ::kj":
 
 ctypedef Promise[PyArray] PyPromiseArray
 
+cdef extern from "kj/units.h" namespace " ::kj":
+    cdef struct Unsafe_:
+        pass
+    cdef Unsafe_ unsafe "::kj::unsafe"
+
 cdef extern from "kj/time.h" namespace " ::kj":
     cdef cppclass Duration:
-        Duration(int64_t)
+        Duration(int64_t, Unsafe_)
     # cdef cppclass TimePoint:
     #     TimePoint(Duration)
     cdef cppclass Timer:

@@ -4,17 +4,21 @@
 #include <stdexcept>
 #include "Python.h"
 
+#ifndef DL_EXPORT
+  #define DL_EXPORT(t) t
+#endif
+
 extern "C" {
-   PyObject * wrap_remote_call(PyObject * func, capnp::Response<capnp::DynamicStruct> &);
-   PyObject * wrap_dynamic_struct_reader(capnp::Response<capnp::DynamicStruct> &);
-   ::kj::Promise<void> * call_server_method(PyObject * py_server, char * name, capnp::CallContext< capnp::DynamicStruct, capnp::DynamicStruct> & context);
-   PyObject * wrap_kj_exception(kj::Exception &);
-   PyObject * wrap_kj_exception_for_reraise(kj::Exception &);
-   PyObject * get_exception_info(PyObject *, PyObject *, PyObject *);
-   PyObject * convert_array_pyobject(kj::Array<PyObject *>&);
-   ::kj::Promise<PyObject *> * extract_promise(PyObject *);
-   ::capnp::RemotePromise< ::capnp::DynamicStruct> * extract_remote_promise(PyObject *);
- }
+   DL_EXPORT(PyObject) * wrap_remote_call(PyObject * func, capnp::Response<capnp::DynamicStruct> &);
+   DL_EXPORT(PyObject) * wrap_dynamic_struct_reader(capnp::Response<capnp::DynamicStruct> &);
+   DL_EXPORT(::kj::Promise<void>) * call_server_method(PyObject * py_server, char * name, capnp::CallContext< capnp::DynamicStruct, capnp::DynamicStruct> & context);
+   DL_EXPORT(PyObject) * wrap_kj_exception(kj::Exception &);
+   DL_EXPORT(PyObject) * wrap_kj_exception_for_reraise(kj::Exception &);
+   DL_EXPORT(PyObject) * get_exception_info(PyObject *, PyObject *, PyObject *);
+   DL_EXPORT(PyObject) * convert_array_pyobject(kj::Array<PyObject *>&);
+   DL_EXPORT(::kj::Promise<PyObject *>) * extract_promise(PyObject *);
+   DL_EXPORT(::capnp::RemotePromise< ::capnp::DynamicStruct>) * extract_remote_promise(PyObject *);
+}
 
 class GILAcquire {
 public:
