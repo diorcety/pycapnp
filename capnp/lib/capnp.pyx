@@ -3168,6 +3168,10 @@ cdef class SchemaParser:
     cpdef _parse_disk_file(self, displayName, diskPath, imports) except +reraise_kj_exception:
         cdef _StringArrayPtr importArray
 
+        # Normalize as unix path
+        diskPath = diskPath.replace('\\', '/')
+        imports = [a.replace('\\', '/') for a in imports]
+
         if self._last_import_array and self._last_import_array.parent == imports:
             importArray = self._last_import_array
         else:
