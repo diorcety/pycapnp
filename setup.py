@@ -15,7 +15,7 @@ _this_dir = os.path.dirname(__file__)
 MAJOR = 0
 MINOR = 6
 MICRO = 4
-VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
+VERSION = '%d.%d.%d+x' % (MAJOR, MINOR, MICRO)
 
 
 # Write version info
